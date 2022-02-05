@@ -1,15 +1,17 @@
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IAuthFormValues } from "../lib/types";
 import { login } from "../redux/features/auth/authSlice";
-import { useAppDispatch } from "../redux/store";
+import { RootState, useAppDispatch } from "../redux/store";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
+  const { data } = useSelector((state: RootState) => state.auth);
 
   const handleLogin = async (values: IAuthFormValues) => {
     try {
@@ -19,6 +21,11 @@ const Login = () => {
       setError(err);
     }
   };
+
+  useEffect(() => {
+    console.log("i ran");
+    if (data) navigate("/");
+  }, []);
 
   return (
     <Container maxWidth="sm" sx={{ backgroundColor: "#f5f5f5", minHeight: "93vh" }}>
