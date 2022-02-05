@@ -1,4 +1,5 @@
-import { AppBar, Toolbar, Link, Box } from "@mui/material";
+import { AppBar, Box, Toolbar, Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 const Header: React.FC = () => {
   return (
@@ -6,8 +7,33 @@ const Header: React.FC = () => {
       <AppBar position="fixed">
         <Toolbar>
           <Box id="title-container" sx={{ flex: 1 }}>
-            <Link variant="h5" underline="none" sx={{ color: "white", letterSpacing: "0.3rem" }}>
+            <Link
+              variant="h5"
+              component={RouterLink}
+              to="/"
+              underline="none"
+              sx={{ color: "#fff", letterSpacing: "0.3rem" }}
+            >
               aloeviate.
+            </Link>
+          </Box>
+
+          <Box component="ul">
+            <Link
+              component={RouterLink}
+              to="/login"
+              underline="none"
+              sx={{ color: "#fff", letterSpacing: "0.3rem", mx: "0.5rem" }}
+            >
+              login
+            </Link>
+            <Link
+              component={RouterLink}
+              to="/register"
+              underline="none"
+              sx={{ color: "#fff", letterSpacing: "0.3rem", mx: "0.5rem" }}
+            >
+              register
             </Link>
           </Box>
         </Toolbar>
@@ -16,5 +42,4 @@ const Header: React.FC = () => {
     </>
   );
 };
-
 export default Header;
