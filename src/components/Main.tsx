@@ -1,8 +1,10 @@
-const Main = () => {
+import Timer from "./Timer";
+
+const Main: React.FC = () => {
   return (
-    <div>
-      <h1>Main Page</h1>
-    </div>
+    <>
+      <Timer />
+    </>
   );
 };
 
