@@ -22,6 +22,12 @@ export interface IAuthState {
   isLoading: boolean;
 }
 
+export interface ITaskState {
+  data: ITask[] | null;
+  error: Error | any;
+  isLoading: boolean;
+}
+
 export interface IAuthFormValues {
   username: string;
   password: string;

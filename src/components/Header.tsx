@@ -51,7 +51,7 @@ const Header: React.FC = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box sx={{ minHeight: { xs: 59, md: 65 } }} />
+      <Box sx={{ minHeight: { xs: 45, md: 50 } }} />
     </>
   );
 };
