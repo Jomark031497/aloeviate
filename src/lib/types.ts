@@ -32,3 +32,8 @@ export interface IAuthFormValues {
   username: string;
   password: string;
 }
+
+export interface ITaskFormValues {
+  name: string;
+  duration: number;
+}

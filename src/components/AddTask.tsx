@@ -2,6 +2,7 @@ import { Box, Card, Typography, TextField, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { useAppDispatch } from "../redux/store";
+import { addTask } from "../redux/features/task/taskSlice";
 
 const AddTask = () => {
   const dispatch = useAppDispatch();
@@ -18,11 +19,9 @@ const AddTask = () => {
     const newTask = {
       name: task.name,
       duration: parseInt(task.duration) * 60,
-      isCompleted: false,
-      isActive: false,
     };
 
-    // dispatch(addTask(newTask));
+    dispatch(addTask(newTask));
     setTask({ name: "", duration: "0" });
     setOpenAddTask(false);
   };

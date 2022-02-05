@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ITaskState } from "../../../lib/types";
+import { ITaskFormValues, ITaskState } from "../../../lib/types";
 
-export const getTasks = createAsyncThunk("task/get", async (payload, { rejectWithValue }) => {
+export const getTasks = createAsyncThunk("task/get", async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.get("/api/tasks/");
     return data;
@@ -10,6 +10,16 @@ export const getTasks = createAsyncThunk("task/get", async (payload, { rejectWit
     return rejectWithValue(error);
   }
 });
+
+export const addTask = createAsyncThunk("task/add", async (payload: ITaskFormValues, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post("/api/tasks/", payload);
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
 const initialState: ITaskState = {
   data: null,
   error: null,
@@ -29,6 +39,18 @@ const taskSlice = createSlice({
       state.data = action.payload;
     });
     builder.addCase(getTasks.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    builder.addCase(addTask.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addTask.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data?.push(action.payload);
+    });
+    builder.addCase(addTask.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
