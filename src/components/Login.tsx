@@ -1,15 +1,23 @@
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import React from "react";
-
-interface IValues {
-  username: string;
-  password: string;
-}
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { IAuthFormValues } from "../lib/types";
+import { login } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/store";
 
 const Login = () => {
-  const handleLogin = async (values: IValues) => {
-    console.log(values);
+  const dispatch = useAppDispatch();
+  const [error, setError] = useState<any>(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async (values: IAuthFormValues) => {
+    try {
+      await dispatch(login(values));
+      navigate("/");
+    } catch (err: any) {
+      setError(err);
+    }
   };
 
   return (
@@ -27,6 +35,12 @@ const Login = () => {
               size="small"
               sx={{ width: "70%", my: "0.5rem" }}
             />
+            {error && (
+              <Typography color="error" gutterBottom>
+                {error}
+              </Typography>
+            )}
+
             <Button type="submit" variant="contained" sx={{ width: "40%" }}>
               Login
             </Button>

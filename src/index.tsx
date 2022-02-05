@@ -5,15 +5,23 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./styles/theme";
 import { BrowserRouter } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import store from "./redux/store";
+import axios from "axios";
+
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
+axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+    <ReduxProvider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
+    </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
