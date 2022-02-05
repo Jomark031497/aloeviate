@@ -25,7 +25,7 @@ const Login = () => {
   useEffect(() => {
     console.log("i ran");
     if (data) navigate("/");
-  }, []);
+  }, [data, navigate]);
 
   return (
     <Container maxWidth="sm" sx={{ backgroundColor: "#f5f5f5", minHeight: "93vh" }}>
