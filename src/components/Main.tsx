@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { useEffect } from "react";
 import { getTasks } from "../redux/features/task/taskSlice";
 import { useAppDispatch } from "../redux/store";
+import AddTask from "./AddTask";
 import Tasks from "./Tasks";
 import Timer from "./Timer";
 
@@ -23,6 +24,7 @@ const Main: React.FC = () => {
     <Container maxWidth="xs" sx={{ background: "lightgrey", py: 10 }}>
       <Timer />
       <Tasks />
+      <AddTask />
     </Container>
   );
 };
