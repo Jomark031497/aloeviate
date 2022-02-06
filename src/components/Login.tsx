@@ -35,11 +35,14 @@ const Login = () => {
   }, [data, navigate]);
 
   const handleLogin = async (values: IAuthFormValues) => {
+    if (values.username === "" || values.password === "") {
+      setError("username and/or password cannot be empty");
+      return;
+    }
     try {
       await dispatch(login(values)).unwrap();
       navigate("/");
     } catch (err: any) {
-      console.log(err);
       setError(err.error);
     }
   };
@@ -115,10 +118,10 @@ const Login = () => {
               <CLink to="/register" sx={{ ":hover": { color: "secondary.main" } }}>
                 Click here to register
               </CLink>
-              <Box>or</Box>
+              {/* <Box>or</Box>
               <CLink to="/" sx={{ ":hover": { color: "secondary.main" } }}>
                 Sign in as guest
-              </CLink>
+              </CLink> */}
             </Box>
           </Box>
         )}
