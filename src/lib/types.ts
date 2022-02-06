@@ -19,13 +19,13 @@ export interface ITask {
 
 export interface IAuthState {
   data: IUser | null;
-  error: Error | any;
+  error: any;
   isLoading: boolean;
 }
 
 export interface ITaskState {
   data: ITask[];
-  error: Error | any;
+  error: any;
   isLoading: boolean;
 }
 
