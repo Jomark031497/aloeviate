@@ -26,7 +26,8 @@ const Login = () => {
       await dispatch(login(values)).unwrap();
       navigate("/");
     } catch (err: any) {
-      setError(err);
+      console.log(err);
+      setError(err.error);
     }
   };
 

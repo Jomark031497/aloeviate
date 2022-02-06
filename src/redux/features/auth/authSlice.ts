@@ -7,7 +7,7 @@ export const register = createAsyncThunk("auth/register", async (payload: IAuthF
     const { data } = await axios.post("/api/auth/register", payload);
     return data;
   } catch (error: any) {
-    return rejectWithValue(error.response.data.error);
+    return rejectWithValue(error.response.data);
   }
 });
 
@@ -16,7 +16,7 @@ export const login = createAsyncThunk("auth/login", async (payload: IAuthFormVal
     const { data } = await axios.post("/api/auth/login", payload);
     return data;
   } catch (error: any) {
-    return rejectWithValue(error.response.data.error);
+    return rejectWithValue(error.response.data);
   }
 });
 

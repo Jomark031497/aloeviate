@@ -20,7 +20,7 @@ const Register = () => {
       await dispatch(register(values)).unwrap();
       navigate("/login");
     } catch (err: any) {
-      setError(err);
+      setError(err.error);
     }
   };
 
