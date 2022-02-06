@@ -1,4 +1,4 @@
-import { Container, Box, Typography, TextField, Button } from "@mui/material";
+import { Container, Box, Typography, TextField, Button, InputAdornment, IconButton } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -7,12 +7,15 @@ import { IAuthFormValues } from "../lib/types";
 import { login } from "../redux/features/auth/authSlice";
 import { RootState, useAppDispatch } from "../redux/store";
 import CLink from "./custom/CLink";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
   const { data } = useSelector((state: RootState) => state.auth);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (data) navigate("/");
@@ -26,6 +29,8 @@ const Login = () => {
       setError(err);
     }
   };
+
+  const togglePassword = () => setShowPassword((prev) => !prev);
 
   return (
     <Container
@@ -56,11 +61,20 @@ const Login = () => {
               as={TextField}
               name="password"
               label="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               size="small"
               error={error ? true : false}
               sx={{ width: "70%", my: "0.5rem" }}
               InputLabelProps={{ style: { color: "white" } }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={togglePassword} onMouseDown={togglePassword} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             {error && (
               <Typography color="error" gutterBottom>
