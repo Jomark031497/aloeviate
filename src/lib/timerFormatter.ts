@@ -22,7 +22,6 @@ export const timeFormatToSecs = (value: any) => {
   let minutes;
   let seconds;
 
-  console.log(value);
   if (value.length >= 5) {
     hours = 0;
     minutes = parseInt(value.slice(0, 2)) * 60;
