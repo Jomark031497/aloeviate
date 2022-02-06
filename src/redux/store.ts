@@ -9,7 +9,6 @@ const rootReducer = combineReducers({ auth: authSlice, tasks: taskSlice });
 // create the store and add the reducer functions
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -20,7 +20,7 @@ const Login = () => {
 
   const handleLogin = async (values: IAuthFormValues) => {
     try {
-      await dispatch(login(values));
+      await dispatch(login(values)).unwrap();
       navigate("/");
     } catch (err: any) {
       setError(err);
@@ -48,6 +48,7 @@ const Login = () => {
               name="username"
               label="username"
               size="small"
+              error={error ? true : false}
               sx={{ width: "70%", my: "0.5rem" }}
               InputLabelProps={{ style: { color: "white" } }}
             />
@@ -57,6 +58,7 @@ const Login = () => {
               label="password"
               type="password"
               size="small"
+              error={error ? true : false}
               sx={{ width: "70%", my: "0.5rem" }}
               InputLabelProps={{ style: { color: "white" } }}
             />
