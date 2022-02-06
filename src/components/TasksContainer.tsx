@@ -1,5 +1,4 @@
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
+import { Box, Divider, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getTasks } from "../redux/features/task/taskSlice";
@@ -15,7 +14,32 @@ const Tasks: React.FC = () => {
     dispatch(getTasks());
   }, [dispatch]);
 
-  return <>{tasks && tasks.map((task) => <TaskCard task={task} key={task._id} />)}</>;
+  return (
+    <Box id="tasks-container" sx={{ mx: "auto" }}>
+      {tasks.length ? (
+        <>
+          <Box>
+            {tasks &&
+              tasks.map((task) => {
+                return task.isCompleted ? null : <TaskCard task={task} key={task._id} />;
+              })}
+          </Box>
+          <Divider sx={{ width: 260, m: "1rem auto" }} />
+          <Typography align="center" color="textSecondary">
+            Completed tasks
+          </Typography>
+          <Box>
+            {tasks &&
+              tasks.map((task) => {
+                return task.isCompleted ? <TaskCard task={task} key={task._id} /> : null;
+              })}
+          </Box>
+        </>
+      ) : (
+        <Typography align="center">No tasks available</Typography>
+      )}
+    </Box>
+  );
 };
 
 export default Tasks;

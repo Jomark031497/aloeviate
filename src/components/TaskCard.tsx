@@ -80,7 +80,16 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
             <CButton color="error" sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }} onClick={handleDelete}>
               DELETE
             </CButton>
-            <CButton color="success" sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }} onClick={handleUpdate}>
+            <CButton
+              color="success"
+              disabled={task.isCompleted}
+              sx={{
+                fontSize: "0.6rem",
+                px: 1,
+                minWidth: 0,
+              }}
+              onClick={handleUpdate}
+            >
               COMPLETE
             </CButton>
             <CButton color="secondary" sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }} onClick={handleReset}>
