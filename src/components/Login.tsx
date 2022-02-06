@@ -1,8 +1,18 @@
-import { Container, Box, Typography, TextField, Button, InputAdornment, IconButton } from "@mui/material";
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  InputAdornment,
+  IconButton,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IAuthFormValues } from "../lib/types";
 import { login } from "../redux/features/auth/authSlice";
 import { RootState, useAppDispatch } from "../redux/store";
@@ -12,10 +22,13 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
   const { data } = useSelector((state: RootState) => state.auth);
+  const [searchParams] = useSearchParams();
+
+  const [error, setError] = useState<any>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
     if (data) navigate("/");
@@ -32,6 +45,16 @@ const Login = () => {
   };
 
   const togglePassword = () => setShowPassword((prev) => !prev);
+
+  const handleClose = () => {
+    setOpenSnackbar(false);
+  };
+
+  useEffect(() => {
+    if (searchParams.get("register")) {
+      setOpenSnackbar(true);
+    }
+  }, [searchParams]);
 
   return (
     <Container
@@ -78,7 +101,7 @@ const Login = () => {
               }}
             />
             {error && (
-              <Typography color="error" gutterBottom>
+              <Typography color="error" gutterBottom align="center">
                 {error}
               </Typography>
             )}
@@ -100,6 +123,17 @@ const Login = () => {
           </Box>
         )}
       </Formik>
+      <Snackbar
+        open={openSnackbar}
+        onClose={handleClose}
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        sx={{ mb: 5 }}
+      >
+        <Alert severity="success" variant="filled">
+          account registered
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
