@@ -38,7 +38,9 @@ const Header: React.FC = () => {
           <Box component="ul">
             {data ? (
               <>
-                <Typography onClick={handleLogout}>{data.username}</Typography>
+                <Typography color="primary" onClick={handleLogout}>
+                  {data.username}
+                </Typography>
               </>
             ) : (
               <>
