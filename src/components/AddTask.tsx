@@ -46,7 +46,7 @@ const AddTask = () => {
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: "lightgrey",
-            "&:hover": { cursor: "pointer", opacity: "0.7" },
+            "&:hover": { cursor: "pointer", backgroundColor: "gray", border: "2px dashed lightgrey", opacity: "0.7" },
           }}
         >
           <AddIcon sx={{ color: "text.secondary" }} />
@@ -61,7 +61,6 @@ const AddTask = () => {
           sx={{
             m: "1rem auto",
             width: "258px",
-            height: "90px",
             background: "white",
             borderRadius: "0.5rem",
             border: "2px dashed gray",
@@ -74,31 +73,30 @@ const AddTask = () => {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField
               size="small"
-              placeholder="task name"
-              fullWidth
+              label="task name"
               value={task.name}
+              required
               onChange={(e) => setTask({ ...task, name: e.target.value })}
-              InputLabelProps={{ style: { height: "0.5rem" }, shrink: true }}
-              inputProps={{
-                style: { height: "0.5rem", fontSize: "0.9rem" },
-              }}
+              sx={{ my: "0.5rem" }}
             />
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <TextField
-              type="number"
-              size="small"
-              value={task.duration}
-              onChange={(e) => setTask({ ...task, duration: e.target.value })}
-              InputProps={{
-                inputProps: { min: 1 },
-                style: { height: "1.5rem", fontSize: "0.9rem" },
-              }}
-            />
-            <Button size="small" sx={{ ml: "0.3rem" }} onClick={() => setOpenAddTask(!openAddTask)}>
+          <TextField
+            type="number"
+            size="small"
+            label="duration (minutes)"
+            value={task.duration}
+            required
+            onChange={(e) => setTask({ ...task, duration: e.target.value })}
+            InputProps={{
+              inputProps: { min: 1 },
+            }}
+            sx={{ my: "0.5rem" }}
+          />
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
+            <Button size="small" variant="contained" sx={{ ml: "0.3rem" }} onClick={() => setOpenAddTask(!openAddTask)}>
               Cancel
             </Button>
-            <Button size="small" type="submit">
+            <Button size="small" variant="contained" type="submit">
               Add
             </Button>
           </Box>

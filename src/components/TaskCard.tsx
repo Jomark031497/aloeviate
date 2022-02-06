@@ -66,13 +66,18 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
           </Box>
 
           <CardActions disableSpacing sx={{ height: "20%", display: "flex", justifyContent: "space-between", p: 0 }}>
-            <Button size="small" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }} onClick={handleDelete}>
+            <Button
+              size="small"
+              color="secondary"
+              sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }}
+              onClick={handleDelete}
+            >
               DELETE
             </Button>
             <Button size="small" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }} onClick={handleReset}>
               RESET
             </Button>
-            <Button size="small" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }} onClick={handleUpdate}>
+            <Button size="small" color="success" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }} onClick={handleUpdate}>
               COMPLETE
             </Button>
             <Button size="small" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }}></Button>
