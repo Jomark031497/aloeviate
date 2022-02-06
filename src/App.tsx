@@ -18,7 +18,6 @@ function App() {
         const { data } = await axios.get("/api/auth/me");
         dispatch(setCurrentUser(data));
       } catch (error) {
-        console.error(error);
         navigate("/login");
       }
     };
