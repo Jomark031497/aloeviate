@@ -6,12 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { IAuthFormValues } from "../lib/types";
 import { login } from "../redux/features/auth/authSlice";
 import { RootState, useAppDispatch } from "../redux/store";
+import CLink from "./custom/CLink";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
   const { data } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (data) navigate("/");
+  }, [data, navigate]);
 
   const handleLogin = async (values: IAuthFormValues) => {
     try {
@@ -22,18 +27,30 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("i ran");
-    if (data) navigate("/");
-  }, [data, navigate]);
-
   return (
-    <Container maxWidth="sm" sx={{ backgroundColor: "#f5f5f5", minHeight: "93vh" }}>
+    <Container
+      maxWidth="xs"
+      sx={{
+        minHeight: "85vh",
+        background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
+        borderRadius: "1rem",
+        width: { xs: "90vw" },
+      }}
+    >
       <Formik initialValues={{ username: "", password: "" }} onSubmit={(values) => handleLogin(values)}>
         {() => (
           <Box component={Form} sx={{ display: "flex", flexDirection: "column", alignItems: "center", py: "6rem" }}>
-            <Typography variant="h5">LOGIN</Typography>
-            <Field as={TextField} name="username" label="username" size="small" sx={{ width: "70%", my: "0.5rem" }} />
+            <Typography variant="h5" gutterBottom>
+              Hi, Welcome back!
+            </Typography>
+            <Field
+              as={TextField}
+              name="username"
+              label="username"
+              size="small"
+              sx={{ width: "70%", my: "0.5rem" }}
+              InputLabelProps={{ style: { color: "white" } }}
+            />
             <Field
               as={TextField}
               name="password"
@@ -41,6 +58,7 @@ const Login = () => {
               type="password"
               size="small"
               sx={{ width: "70%", my: "0.5rem" }}
+              InputLabelProps={{ style: { color: "white" } }}
             />
             {error && (
               <Typography color="error" gutterBottom>
@@ -51,6 +69,17 @@ const Login = () => {
             <Button type="submit" variant="contained" sx={{ width: "40%" }}>
               Login
             </Button>
+
+            <Box sx={{ my: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <Typography align="center">No account yet?</Typography>
+              <CLink to="/register" sx={{ ":hover": { color: "secondary.main" } }}>
+                Click here to register
+              </CLink>
+              <Box>or</Box>
+              <CLink to="/" sx={{ ":hover": { color: "secondary.main" } }}>
+                Sign in as guest
+              </CLink>
+            </Box>
           </Box>
         )}
       </Formik>

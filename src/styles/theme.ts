@@ -1,16 +1,23 @@
 import { createTheme } from "@mui/material";
-let theme = createTheme();
 
-theme = createTheme(theme, {
+let theme = createTheme({
   palette: {
     primary: {
-      main: "#41B3A3",
+      main: "#b293aa",
+    },
+    text: {
+      primary: "#fff",
     },
     secondary: {
-      main: "#E27D60",
+      main: "#0786ff",
+    },
+    background: {
+      default: "#081119",
     },
   },
-  typography: {},
+  typography: {
+    fontFamily: "'Quicksand', sans-serif",
+  },
 });
 
 export default theme;

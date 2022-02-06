@@ -1,8 +1,8 @@
-import { AppBar, Box, Toolbar, Link, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
 import { RootState } from "../redux/store";
+import CLink from "./custom/CLink";
 
 const Header: React.FC = () => {
   const { data } = useSelector((state: RootState) => state.auth);
@@ -15,20 +15,23 @@ const Header: React.FC = () => {
       console.error(error);
     }
   };
+
   return (
     <>
-      <AppBar position="fixed">
-        <Toolbar>
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{ backgroundColor: "transparent", height: "10vh", justifyContent: "center" }}
+      >
+        <Toolbar sx={{ alignItems: "center" }}>
           <Box id="title-container" sx={{ flex: 1 }}>
-            <Link
+            <CLink
               variant="h5"
-              component={RouterLink}
               to="/"
-              underline="none"
-              sx={{ color: "#fff", letterSpacing: "0.3rem" }}
+              sx={{ letterSpacing: "0.3rem", p: "1rem", ":hover": { color: "secondary.main" } }}
             >
               aloeviate.
-            </Link>
+            </CLink>
           </Box>
 
           <Box component="ul">
@@ -38,29 +41,44 @@ const Header: React.FC = () => {
               </>
             ) : (
               <>
-                {" "}
-                <Link
-                  component={RouterLink}
+                <CLink
                   to="/login"
-                  underline="none"
-                  sx={{ color: "#fff", letterSpacing: "0.3rem", mx: "0.5rem" }}
+                  sx={{
+                    p: { xs: "0.5rem 1rem", md: "0.5rem 2rem" },
+                    borderRadius: 3,
+                    border: "1px solid",
+                    borderColor: "secondary.main",
+                    mx: { xs: "0.5rem", md: "1rem" },
+                    ":hover": {
+                      borderColor: "primary.main",
+                      color: "secondary.main",
+                    },
+                  }}
                 >
                   login
-                </Link>
-                <Link
-                  component={RouterLink}
+                </CLink>
+                <CLink
                   to="/register"
-                  underline="none"
-                  sx={{ color: "#fff", letterSpacing: "0.3rem", mx: "0.5rem" }}
+                  sx={{
+                    p: { xs: "0.5rem 1rem", md: "0.5rem 2rem" },
+                    borderRadius: 3,
+                    border: "1px solid",
+                    borderColor: "secondary.main",
+                    mx: { xs: "0.5rem", md: "1rem" },
+                    ":hover": {
+                      borderColor: "primary.main",
+                      color: "secondary.main",
+                    },
+                  }}
                 >
                   register
-                </Link>
+                </CLink>
               </>
             )}
           </Box>
         </Toolbar>
       </AppBar>
-      <Box sx={{ minHeight: { xs: 45, md: 50 } }} />
+      <Box sx={{ minHeight: "10vh" }} />
     </>
   );
 };
