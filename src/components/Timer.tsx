@@ -98,11 +98,11 @@ const Timer: React.FC = () => {
       <Box id="timer-action-button" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         {playTimer ? (
           <IconButton sx={{ mx: "1rem" }} onClick={() => pauseTimer()}>
-            <PauseIcon sx={{ fontSize: "4rem" }} />
+            <PauseIcon sx={{ fontSize: "4rem", color: "text.primary" }} />
           </IconButton>
         ) : (
           <IconButton sx={{ mx: "1rem" }} onClick={() => startTimer()}>
-            <PlayIcon sx={{ fontSize: "4rem" }} />
+            <PlayIcon sx={{ fontSize: "4rem", color: "text.primary" }} />
           </IconButton>
         )}
       </Box>

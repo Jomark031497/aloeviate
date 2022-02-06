@@ -36,23 +36,20 @@ const AddTask = () => {
           onClick={() => setOpenAddTask(!openAddTask)}
           sx={{
             m: "1rem auto",
+            p: "1.5rem",
             width: "258px",
-            height: "90px",
             background: "white",
             borderRadius: "0.5rem",
-            border: "2px dashed gray",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "lightgrey",
-            "&:hover": { cursor: "pointer", backgroundColor: "gray", border: "2px dashed lightgrey", opacity: "0.7" },
+            backgroundColor: "background.default",
+            "&:hover": { cursor: "pointer", opacity: "0.7" },
           }}
         >
-          <AddIcon sx={{ color: "text.secondary" }} />
-          <Typography variant="body2" color="textSecondary">
-            Add Task
-          </Typography>
+          <AddIcon />
+          <Typography variant="body2">Add Task</Typography>
         </Card>
       ) : (
         <Card
@@ -61,7 +58,7 @@ const AddTask = () => {
           sx={{
             m: "1rem auto",
             width: "258px",
-            background: "white",
+            background: "linear-gradient(40deg, rgba(14,80,144,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
             borderRadius: "0.5rem",
             border: "2px dashed gray",
             display: "flex",
@@ -76,6 +73,7 @@ const AddTask = () => {
               label="task name"
               value={task.name}
               required
+              autoFocus
               onChange={(e) => setTask({ ...task, name: e.target.value })}
               sx={{ my: "0.5rem" }}
             />

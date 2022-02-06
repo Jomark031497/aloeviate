@@ -4,6 +4,8 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import { ITask } from "../lib/types";
 import { useAppDispatch } from "../redux/store";
 import { deleteTask, updateTask } from "../redux/features/task/taskSlice";
+import CButton from "./custom/CButton";
+import ColWrapper from "./custom/ColWrapper";
 
 interface IProps {
   task: ITask;
@@ -46,18 +48,21 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
   };
 
   return (
-    <Card sx={{ m: "0 auto 0.5rem auto", width: 260, height: 90, background: task.isCompleted ? "lightgreen" : "" }}>
+    <Card
+      sx={{
+        m: "10px auto",
+        width: 260,
+        height: 90,
+        backgroundColor: "background.default",
+      }}
+    >
       <CardContent sx={{ display: "flex", height: "100%", padding: 0, "&:last-child": { paddingBottom: 0 } }}>
-        <Box
-          sx={{ flex: 0.4, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <Box>
-              <AssignmentIcon sx={{ fontSize: "2rem" }} />
-            </Box>
+        <ColWrapper sx={{ flex: 0.4 }}>
+          <ColWrapper>
+            <AssignmentIcon sx={{ fontSize: "2rem", display: "block" }} />
             <Typography variant="body2">{minsToTimeFormat(task.duration)}</Typography>
-          </Box>
-        </Box>
+          </ColWrapper>
+        </ColWrapper>
         <Box sx={{ flex: 1, p: "0.5rem", display: "flex", flexDirection: "column", width: "20%" }}>
           <Box sx={{ height: "80%", display: "flex", alignItems: "center" }}>
             <Typography variant="body2" noWrap onClick={() => console.log("im clicked")}>
@@ -66,21 +71,15 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
           </Box>
 
           <CardActions disableSpacing sx={{ height: "20%", display: "flex", justifyContent: "space-between", p: 0 }}>
-            <Button
-              size="small"
-              color="secondary"
-              sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }}
-              onClick={handleDelete}
-            >
+            <CButton color="error" sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }} onClick={handleDelete}>
               DELETE
-            </Button>
-            <Button size="small" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }} onClick={handleReset}>
-              RESET
-            </Button>
-            <Button size="small" color="success" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }} onClick={handleUpdate}>
+            </CButton>
+            <CButton color="success" sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }} onClick={handleUpdate}>
               COMPLETE
-            </Button>
-            <Button size="small" sx={{ fontSize: "0.6rem", p: 0, minWidth: 0 }}></Button>
+            </CButton>
+            <CButton color="secondary" sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }} onClick={handleReset}>
+              RESET
+            </CButton>
           </CardActions>
         </Box>
       </CardContent>

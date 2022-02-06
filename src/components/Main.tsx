@@ -36,6 +36,7 @@ const Main: React.FC = () => {
         borderRadius: "1rem",
         width: { xs: "90vw" },
         pt: 10,
+        pb: 3,
       }}
     >
       {data && (
