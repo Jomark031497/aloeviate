@@ -16,9 +16,14 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = async (values: IAuthFormValues) => {
+    if (values.username === "" || values.password === "") {
+      setError("username and/or password cannot be empty");
+      return;
+    }
+
     try {
       await dispatch(register(values)).unwrap();
-      navigate("/login");
+      navigate("/login?register=true");
     } catch (err: any) {
       setError(err.error);
     }
@@ -71,7 +76,7 @@ const Register = () => {
               }}
             />
             {error && (
-              <Typography color="error" gutterBottom>
+              <Typography color="error" variant="body1" gutterBottom align="center">
                 {error}
               </Typography>
             )}
@@ -85,10 +90,10 @@ const Register = () => {
               <CLink to="/login" sx={{ ":hover": { color: "secondary.main" } }}>
                 Click here to login
               </CLink>
-              <Box>or</Box>
+              {/* <Box>or</Box>
               <CLink to="/" sx={{ ":hover": { color: "secondary.main" } }}>
                 Sign in as guest
-              </CLink>
+              </CLink> */}
             </Box>
           </Box>
         )}
