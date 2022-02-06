@@ -11,6 +11,7 @@ export interface ITask {
   _id: string;
   name: string;
   duration: number;
+  elapsed: number;
   isCompleted: boolean;
   createdAt?: string;
   updatedAt?: string;

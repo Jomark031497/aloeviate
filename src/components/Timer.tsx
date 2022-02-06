@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ITask } from "../lib/types";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../redux/store";
-import { minsToTimeFormat } from "../lib/timerFormatter";
+import { minsToTimeFormat, timeFormatToSecs } from "../lib/timerFormatter";
 import { updateTask } from "../redux/features/task/taskSlice";
 
 const Timer: React.FC = () => {
@@ -14,7 +14,6 @@ const Timer: React.FC = () => {
 
   const [playTimer, setPlayTimer] = useState(false);
   const [activeTask, setActiveTask] = useState<ITask | null>(null);
-  const [elapsed, setElapsed] = useState(0);
   const taskDurationRef = useRef<any>(null);
   const taskNameRef = useRef<any>(null);
 
@@ -24,6 +23,12 @@ const Timer: React.FC = () => {
   };
 
   const pauseTimer = () => {
+    if (!activeTask) return;
+    setActiveTask({
+      ...activeTask,
+      elapsed: activeTask.duration - timeFormatToSecs(taskDurationRef.current.innerHTML),
+    });
+
     setPlayTimer(false);
   };
 
@@ -33,52 +38,58 @@ const Timer: React.FC = () => {
   };
 
   const clearRef = () => {
+    console.log("ref update");
     taskDurationRef.current.innerHTML = "00:00";
     taskNameRef.current.innerHTML = "No Task";
   };
 
   useEffect(() => {
-    console.log("filtering useEffect ran");
-    if (!tasks.length) {
-      console.log("no tasks at all");
+    if (!tasks) return;
+
+    const incompleteTasks = tasks.filter((task) => !task.isCompleted);
+    if (!incompleteTasks.length) {
+      setActiveTask(null);
+      clearRef();
       return;
     }
 
-    const incompleteTasks = tasks.filter((task) => !task.isCompleted);
+    const currentTask = incompleteTasks[0];
+    setActiveTask(currentTask);
+    updateRef(currentTask.name, currentTask.duration);
+  }, [tasks]);
 
-    if (!incompleteTasks.length) {
-      console.log("no incomplete tasks!");
-      setActiveTask(null);
+  useEffect(() => {
+    console.log("countdown effect");
+    if (!activeTask) {
+      setPlayTimer(false);
       return;
-    } else {
-      setActiveTask(incompleteTasks[0]);
     }
 
     let countdown: any;
-    let elapsedCounter: any;
 
-    if (playTimer && activeTask) {
-      let duration = activeTask.duration - elapsed;
-      elapsedCounter = 0;
+    if (playTimer && activeTask.duration !== activeTask.elapsed) {
+      console.log("lets go timer!");
+      let duration = activeTask.duration - activeTask.elapsed;
+
       countdown = setInterval(() => {
         if (duration <= 1) {
+          clearInterval(countdown);
           setPlayTimer(false);
-          dispatch(updateTask({ ...activeTask, isCompleted: true }));
           clearRef();
+          dispatch(updateTask({ ...activeTask, isCompleted: true, elapsed: 0 }));
+          setActiveTask(null);
         }
-
         duration -= 1;
-        elapsedCounter += 1;
         updateRef(activeTask.name, duration);
-        console.log(duration, elapsedCounter);
       }, 500);
     }
 
     return () => clearInterval(countdown);
-  }, [tasks, activeTask, playTimer, dispatch]);
+  }, [activeTask, playTimer, dispatch]);
 
   return (
     <Box id="timer-container" sx={{ my: "1rem" }}>
+      {activeTask ? <>active task {activeTask.name}</> : <>none</>}
       <>
         <Typography variant="h2" align="center" ref={taskDurationRef}>
           00:00

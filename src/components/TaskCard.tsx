@@ -37,6 +37,7 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
       const payload: ITask = {
         ...task,
         isCompleted: false,
+        elapsed: 0,
       };
       await dispatch(updateTask(payload));
     } catch (error) {
