@@ -78,7 +78,7 @@ const Timer: React.FC = () => {
         }
         duration -= 1;
         updateRef(activeTask.name, duration);
-      }, 100);
+      }, 1000);
     }
 
     return () => clearInterval(countdown);
