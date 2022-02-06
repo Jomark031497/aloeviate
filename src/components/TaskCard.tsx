@@ -6,6 +6,7 @@ import { useAppDispatch } from "../redux/store";
 import { deleteTask, updateTask } from "../redux/features/task/taskSlice";
 import CButton from "./custom/CButton";
 import ColWrapper from "./custom/ColWrapper";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 interface IProps {
   task: ITask;
@@ -59,13 +60,18 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
       <CardContent sx={{ display: "flex", height: "100%", padding: 0, "&:last-child": { paddingBottom: 0 } }}>
         <ColWrapper sx={{ flex: 0.4 }}>
           <ColWrapper>
-            <AssignmentIcon sx={{ fontSize: "2rem", display: "block" }} />
+            {task.isCompleted ? (
+              <CheckBoxIcon sx={{ fontSize: "2rem", display: "block", color: "success.main" }} />
+            ) : (
+              <AssignmentIcon sx={{ fontSize: "2rem", display: "block" }} />
+            )}
+
             <Typography variant="body2">{minsToTimeFormat(task.duration)}</Typography>
           </ColWrapper>
         </ColWrapper>
         <Box sx={{ flex: 1, p: "0.5rem", display: "flex", flexDirection: "column", width: "20%" }}>
           <Box sx={{ height: "80%", display: "flex", alignItems: "center" }}>
-            <Typography variant="body2" noWrap onClick={() => console.log("im clicked")}>
+            <Typography variant="body2" noWrap sx={{ textDecoration: task.isCompleted ? "line-through" : "" }}>
               {task.name}
             </Typography>
           </Box>
