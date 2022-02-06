@@ -38,7 +38,6 @@ const Timer: React.FC = () => {
   };
 
   const clearRef = () => {
-    console.log("ref update");
     taskDurationRef.current.innerHTML = "00:00";
     taskNameRef.current.innerHTML = "No Task";
   };
@@ -59,7 +58,6 @@ const Timer: React.FC = () => {
   }, [tasks]);
 
   useEffect(() => {
-    console.log("countdown effect");
     if (!activeTask) {
       setPlayTimer(false);
       return;
@@ -68,7 +66,6 @@ const Timer: React.FC = () => {
     let countdown: any;
 
     if (playTimer && activeTask.duration !== activeTask.elapsed) {
-      console.log("lets go timer!");
       let duration = activeTask.duration - activeTask.elapsed;
 
       countdown = setInterval(() => {
@@ -81,7 +78,7 @@ const Timer: React.FC = () => {
         }
         duration -= 1;
         updateRef(activeTask.name, duration);
-      }, 500);
+      }, 100);
     }
 
     return () => clearInterval(countdown);
@@ -89,15 +86,14 @@ const Timer: React.FC = () => {
 
   return (
     <Box id="timer-container" sx={{ my: "1rem" }}>
-      {activeTask ? <>active task {activeTask.name}</> : <>none</>}
-      <>
+      <Box>
         <Typography variant="h2" align="center" ref={taskDurationRef}>
           00:00
         </Typography>
         <Typography variant="h6" align="center" ref={taskNameRef}>
           No Task
         </Typography>
-      </>
+      </Box>
 
       <Box id="timer-action-button" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         {playTimer ? (
