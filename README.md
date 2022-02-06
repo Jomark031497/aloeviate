@@ -1,6 +1,6 @@
 # Aloeviate
 
-## A Productivity app that is a combination of a pomodoro clock and todo-list app
+## A Productivity app that is a combination of a pomodoro clock and todo-list app (JS VERSION)
 
 ## https://aloeviate-client.vercel.app/
 
