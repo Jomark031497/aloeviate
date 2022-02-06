@@ -29,6 +29,15 @@ export const updateTask = createAsyncThunk("task/update", async (payload: ITask,
   }
 });
 
+export const deleteTask = createAsyncThunk("task/delete", async (payload: string, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.delete(`/api/tasks/${payload}`);
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
 const initialState: ITaskState = {
   data: [],
   error: null,
@@ -76,6 +85,19 @@ const taskSlice = createSlice({
       state.data[index] = action.payload;
     });
     builder.addCase(updateTask.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    // delete task reducers
+    builder.addCase(deleteTask.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = state.data.filter((task) => task._id !== action.payload._id);
+    });
+    builder.addCase(deleteTask.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

@@ -3,7 +3,7 @@ import { minsToTimeFormat } from "../lib/timerFormatter";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { ITask } from "../lib/types";
 import { useAppDispatch } from "../redux/store";
-import { updateTask } from "../redux/features/task/taskSlice";
+import { deleteTask, updateTask } from "../redux/features/task/taskSlice";
 
 interface IProps {
   task: ITask;
@@ -12,7 +12,13 @@ interface IProps {
 const TaskCard: React.FC<IProps> = ({ task }) => {
   const dispatch = useAppDispatch();
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    try {
+      dispatch(deleteTask(task._id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleUpdate = async () => {
     try {
