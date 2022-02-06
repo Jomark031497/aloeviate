@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CLink from "./custom/CLink";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Header: React.FC = () => {
   const { data } = useSelector((state: RootState) => state.auth);
@@ -41,38 +42,17 @@ const Header: React.FC = () => {
               </>
             ) : (
               <>
-                <CLink
-                  to="/login"
-                  sx={{
-                    p: { xs: "0.5rem 1rem", md: "0.5rem 2rem" },
-                    borderRadius: 3,
-                    border: "1px solid",
-                    borderColor: "secondary.main",
-                    mx: { xs: "0.5rem", md: "1rem" },
-                    ":hover": {
-                      borderColor: "primary.main",
-                      color: "secondary.main",
-                    },
-                  }}
-                >
-                  login
-                </CLink>
-                <CLink
-                  to="/register"
-                  sx={{
-                    p: { xs: "0.5rem 1rem", md: "0.5rem 2rem" },
-                    borderRadius: 3,
-                    border: "1px solid",
-                    borderColor: "secondary.main",
-                    mx: { xs: "0.5rem", md: "1rem" },
-                    ":hover": {
-                      borderColor: "primary.main",
-                      color: "secondary.main",
-                    },
-                  }}
-                >
-                  register
-                </CLink>
+                <Box sx={{ display: { xs: "none", md: "block" } }}>
+                  <CLink to="/login" sx={{ p: { xs: "0.5rem 1rem", md: "0.5rem 2rem" } }}>
+                    login
+                  </CLink>
+                  <CLink to="/register" sx={{ p: { xs: "0.5rem 1rem", md: "0.5rem 2rem" } }}>
+                    register
+                  </CLink>
+                </Box>
+                <Box sx={{ display: { xs: "block", md: "none" } }}>
+                  <MenuIcon sx={{ color: "primary.main" }} />
+                </Box>
               </>
             )}
           </Box>
