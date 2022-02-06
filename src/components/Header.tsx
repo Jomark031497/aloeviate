@@ -1,4 +1,5 @@
 import { AppBar, Box, Toolbar, Link, Typography } from "@mui/material";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { RootState } from "../redux/store";
@@ -6,6 +7,14 @@ import { RootState } from "../redux/store";
 const Header: React.FC = () => {
   const { data } = useSelector((state: RootState) => state.auth);
 
+  const handleLogout = async () => {
+    try {
+      await axios.get("/api/auth/logout");
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <AppBar position="fixed">
@@ -25,7 +34,7 @@ const Header: React.FC = () => {
           <Box component="ul">
             {data ? (
               <>
-                <Typography>{data.username}</Typography>
+                <Typography onClick={handleLogout}>{data.username}</Typography>
               </>
             ) : (
               <>

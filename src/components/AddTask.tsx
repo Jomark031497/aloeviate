@@ -15,15 +15,18 @@ const AddTask = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!task.name || !task.duration) return;
+    try {
+      const newTask = {
+        name: task.name,
+        duration: parseInt(task.duration) * 60,
+      };
 
-    const newTask = {
-      name: task.name,
-      duration: parseInt(task.duration) * 60,
-    };
-
-    dispatch(addTask(newTask));
-    setTask({ name: "", duration: "0" });
-    setOpenAddTask(false);
+      dispatch(addTask(newTask));
+      setTask({ name: "", duration: "0" });
+      setOpenAddTask(false);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
