@@ -25,6 +25,7 @@ const Main: React.FC = () => {
       }
     };
     checkAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
