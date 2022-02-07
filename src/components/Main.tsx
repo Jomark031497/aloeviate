@@ -1,9 +1,13 @@
 import { Container } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 import AddTask from "./AddTask";
 import TasksContainer from "./TasksContainer";
 import Timer from "./Timer";
 
 const Main: React.FC = () => {
+  const { data } = useSelector((state: RootState) => state.auth);
+
   return (
     <Container
       maxWidth="xs"
@@ -16,11 +20,13 @@ const Main: React.FC = () => {
         pb: 3,
       }}
     >
-      <>
-        <Timer />
-        <TasksContainer />
-        <AddTask />
-      </>
+      {data && (
+        <>
+          <Timer />
+          <TasksContainer />
+          <AddTask />
+        </>
+      )}
     </Container>
   );
 };

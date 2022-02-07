@@ -1,12 +1,17 @@
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState, useAppDispatch } from "../redux/store";
 import CLink from "./custom/CLink";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { setCurrentUser } from "../redux/features/auth/authSlice";
 
 const Header: React.FC = () => {
   const { data } = useSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -16,6 +21,18 @@ const Header: React.FC = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const { data } = await axios.get("/api/auth/me");
+        dispatch(setCurrentUser(data));
+      } catch (error) {
+        navigate("/login");
+      }
+    };
+    checkAuth();
+  }, [dispatch, navigate]);
 
   return (
     <>
