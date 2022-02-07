@@ -1,4 +1,4 @@
-import Skeleton from "@mui/lab/Skeleton";
+import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 
 const LoadingSkeleton = () => {
