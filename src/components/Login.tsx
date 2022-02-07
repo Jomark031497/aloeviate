@@ -102,7 +102,7 @@ const Login = () => {
             )}
 
             <LoadingButton type="submit" loading={isLoading} variant="contained" sx={{ width: "40%" }}>
-              Register
+              Login
             </LoadingButton>
 
             <Box sx={{ my: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
