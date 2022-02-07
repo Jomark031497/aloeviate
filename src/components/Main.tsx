@@ -1,17 +1,14 @@
 import { Container } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCurrentUser } from "../redux/features/auth/authSlice";
-import { RootState, useAppDispatch } from "../redux/store";
+import { useAppDispatch } from "../redux/store";
 import AddTask from "./AddTask";
 import TasksContainer from "./TasksContainer";
 import Timer from "./Timer";
 
 const Main: React.FC = () => {
-  const { data } = useSelector((state: RootState) => state.auth);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -40,13 +37,9 @@ const Main: React.FC = () => {
         pb: 3,
       }}
     >
-      {data && (
-        <>
-          <Timer />
-          <TasksContainer />
-          <AddTask />
-        </>
-      )}
+      <Timer />
+      <TasksContainer />
+      <AddTask />
     </Container>
   );
 };

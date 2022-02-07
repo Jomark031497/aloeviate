@@ -19,12 +19,14 @@ import { RootState, useAppDispatch } from "../redux/store";
 import CLink from "./custom/CLink";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { data } = useSelector((state: RootState) => state.auth);
   const [searchParams] = useSearchParams();
+  const { isLoading } = useSelector((state: RootState) => state.auth);
 
   const [error, setError] = useState<any>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -109,9 +111,9 @@ const Login = () => {
               </Typography>
             )}
 
-            <Button type="submit" variant="contained" sx={{ width: "40%" }}>
-              Login
-            </Button>
+            <LoadingButton type="submit" loading={isLoading} variant="contained" sx={{ width: "40%" }}>
+              Register
+            </LoadingButton>
 
             <Box sx={{ my: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
               <Typography align="center">No account yet?</Typography>

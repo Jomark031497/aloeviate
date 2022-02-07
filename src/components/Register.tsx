@@ -1,19 +1,22 @@
-import { Container, Box, Typography, TextField, Button, InputAdornment, IconButton } from "@mui/material";
+import { Container, Box, Typography, TextField, InputAdornment, IconButton } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { useState } from "react";
 import { IAuthFormValues } from "../lib/types";
 import { register } from "../redux/features/auth/authSlice";
-import { useAppDispatch } from "../redux/store";
+import { RootState, useAppDispatch } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import CLink from "./custom/CLink";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useSelector } from "react-redux";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState<any>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const { isLoading } = useSelector((state: RootState) => state.auth);
 
   const handleRegister = async (values: IAuthFormValues) => {
     if (values.username === "" || values.password === "") {
@@ -81,9 +84,9 @@ const Register = () => {
               </Typography>
             )}
 
-            <Button type="submit" variant="contained" sx={{ width: "40%" }}>
+            <LoadingButton type="submit" loading={isLoading} variant="contained" sx={{ width: "40%" }}>
               Register
-            </Button>
+            </LoadingButton>
 
             <Box sx={{ my: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
               <Typography align="center">Already have an account?</Typography>
