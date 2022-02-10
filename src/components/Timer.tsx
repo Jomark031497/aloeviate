@@ -14,6 +14,7 @@ const Timer: React.FC = () => {
 
   const [playTimer, setPlayTimer] = useState(false);
   const [activeTask, setActiveTask] = useState<ITask | null>(null);
+
   const taskDurationRef = useRef<any>(null);
   const taskNameRef = useRef<any>(null);
 
