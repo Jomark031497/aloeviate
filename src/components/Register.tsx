@@ -39,14 +39,22 @@ const Register = () => {
       maxWidth="xs"
       sx={{
         minHeight: "90vh",
-        background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
-        borderRadius: "1rem",
-        width: { xs: "90vw" },
       }}
     >
       <Formik initialValues={{ username: "", password: "" }} onSubmit={(values) => handleRegister(values)}>
         {() => (
-          <Box component={Form} sx={{ display: "flex", flexDirection: "column", alignItems: "center", py: "6rem" }}>
+          <Box
+            component={Form}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              py: "6rem",
+              background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
+              borderRadius: "1rem",
+              height: "85vh",
+            }}
+          >
             <Typography variant="h5" gutterBottom>
               Let's Register!
             </Typography>
