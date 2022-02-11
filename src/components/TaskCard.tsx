@@ -5,7 +5,6 @@ import { ITask } from "../lib/types";
 import { useAppDispatch } from "../redux/store";
 import { deleteTask, updateTask } from "../redux/features/task/taskSlice";
 import CButton from "./custom/CButton";
-import ColWrapper from "./custom/ColWrapper";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 interface IProps {
@@ -25,11 +24,7 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
 
   const handleUpdate = async () => {
     try {
-      const payload: ITask = {
-        ...task,
-        isCompleted: true,
-      };
-      await dispatch(updateTask(payload));
+      await dispatch(updateTask({ ...task, isCompleted: true }));
     } catch (error) {
       console.error(error);
     }
@@ -37,12 +32,7 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
 
   const handleReset = async () => {
     try {
-      const payload: ITask = {
-        ...task,
-        isCompleted: false,
-        elapsed: 0,
-      };
-      await dispatch(updateTask(payload));
+      await dispatch(updateTask({ ...task, isCompleted: false, elapsed: 0 }));
     } catch (error) {
       console.error(error);
     }
@@ -58,23 +48,29 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
       }}
     >
       <CardContent sx={{ display: "flex", height: "100%", padding: 0, "&:last-child": { paddingBottom: 0 } }}>
-        <ColWrapper sx={{ flex: 0.4 }}>
-          <ColWrapper>
-            {task.isCompleted ? (
-              <CheckBoxIcon sx={{ fontSize: "2rem", display: "block", color: "success.main" }} />
-            ) : (
-              <AssignmentIcon sx={{ fontSize: "2rem", display: "block" }} />
-            )}
-
-            <Typography variant="body2">{minsToTimeFormat(task.duration)}</Typography>
-          </ColWrapper>
-        </ColWrapper>
+        <Box
+          sx={{ flex: 0.4, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}
+        >
+          {task.isCompleted ? (
+            <CheckBoxIcon sx={{ fontSize: "2rem", display: "block", color: "success.main" }} />
+          ) : (
+            <AssignmentIcon sx={{ fontSize: "2rem", display: "block" }} />
+          )}
+          <Typography variant="body2">{minsToTimeFormat(task.duration)}</Typography>
+        </Box>
         <Box sx={{ flex: 1, p: "0.5rem", display: "flex", flexDirection: "column", width: "20%" }}>
-          <Box sx={{ height: "80%", display: "flex", alignItems: "center" }}>
-            <Typography variant="body2" noWrap sx={{ textDecoration: task.isCompleted ? "line-through" : "" }}>
-              {task.name}
-            </Typography>
-          </Box>
+          <Typography
+            variant="body2"
+            noWrap
+            sx={{
+              textDecoration: task.isCompleted ? "line-through" : "",
+              height: "80%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {task.name}
+          </Typography>
 
           <CardActions disableSpacing sx={{ height: "20%", display: "flex", justifyContent: "space-between", p: 0 }}>
             <CButton color="error" sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }} onClick={handleDelete}>
@@ -83,11 +79,7 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
             <CButton
               color="success"
               disabled={task.isCompleted}
-              sx={{
-                fontSize: "0.6rem",
-                px: 1,
-                minWidth: 0,
-              }}
+              sx={{ fontSize: "0.6rem", px: 1, minWidth: 0 }}
               onClick={handleUpdate}
             >
               COMPLETE
