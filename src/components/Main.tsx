@@ -15,9 +15,9 @@ const Main: React.FC = () => {
       <Box
         sx={{
           background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
-          height: "85vh",
+          minHeight: "85vh",
           borderRadius: "1rem",
-          pt: "2rem",
+          py: "2rem",
           my: "auto",
         }}
       >
