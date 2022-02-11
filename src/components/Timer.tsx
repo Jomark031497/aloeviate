@@ -29,7 +29,6 @@ const Timer: React.FC = () => {
       ...activeTask,
       elapsed: activeTask.duration - timeFormatToSecs(taskDurationRef.current.innerHTML),
     });
-
     setPlayTimer(false);
   };
 
@@ -86,24 +85,22 @@ const Timer: React.FC = () => {
   }, [activeTask, playTimer, dispatch]);
 
   return (
-    <Box id="timer-container" sx={{ my: "1rem" }}>
-      <Box>
-        <Typography variant="h2" align="center" ref={taskDurationRef}>
-          00:00
-        </Typography>
-        <Typography variant="h6" align="center" ref={taskNameRef}>
-          No Task
-        </Typography>
-      </Box>
+    <Box id="timer-container" sx={{ my: "2rem" }}>
+      <Typography variant="h2" align="center" ref={taskDurationRef}>
+        00:00
+      </Typography>
+      <Typography variant="h5" align="center" ref={taskNameRef} gutterBottom>
+        No Task
+      </Typography>
 
-      <Box id="timer-action-button" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Box id="timer-action-button" sx={{ textAlign: "center" }}>
         {playTimer ? (
           <IconButton sx={{ mx: "1rem" }} onClick={() => pauseTimer()}>
-            <PauseIcon sx={{ fontSize: "4rem", color: "text.primary" }} />
+            <PauseIcon sx={{ fontSize: "4rem", color: "text.primary", ":hover": { color: "primary.main" } }} />
           </IconButton>
         ) : (
           <IconButton sx={{ mx: "1rem" }} onClick={() => startTimer()}>
-            <PlayIcon sx={{ fontSize: "4rem", color: "text.primary" }} />
+            <PlayIcon sx={{ fontSize: "4rem", color: "text.primary", ":hover": { color: "primary.main" } }} />
           </IconButton>
         )}
       </Box>

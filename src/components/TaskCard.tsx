@@ -44,7 +44,7 @@ const TaskCard: React.FC<IProps> = ({ task }) => {
         m: "10px auto",
         width: 260,
         height: 90,
-        backgroundColor: "background.default",
+        backgroundColor: task.isCompleted ? "#3b3d40" : "background.default",
       }}
     >
       <CardContent sx={{ display: "flex", height: "100%", padding: 0, "&:last-child": { paddingBottom: 0 } }}>
