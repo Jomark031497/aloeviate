@@ -41,37 +41,24 @@ const Login = () => {
 
   const togglePassword = () => setShowPassword((prev) => !prev);
 
-  const handleClose = () => {
-    setOpenSnackbar(false);
-  };
+  const handleClose = () => setOpenSnackbar(false);
 
   useEffect(() => {
-    if (searchParams.get("register")) {
-      setOpenSnackbar(true);
-    }
+    if (searchParams.get("register")) setOpenSnackbar(true);
   }, [searchParams]);
 
   return (
     <Container
       maxWidth="xs"
       sx={{
-        minHeight: "90vh",
+        background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
+        borderRadius: "1rem",
+        height: "85vh",
       }}
     >
       <Formik initialValues={{ username: "", password: "" }} onSubmit={(values) => handleLogin(values)}>
         {() => (
-          <Box
-            component={Form}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              py: "6rem",
-              background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
-              borderRadius: "1rem",
-              height: "85vh",
-            }}
-          >
+          <Box component={Form} sx={{ textAlign: "center", p: "8rem 3rem" }}>
             <Typography variant="h5" gutterBottom>
               Hi, Welcome back!
             </Typography>
@@ -80,8 +67,9 @@ const Login = () => {
               name="username"
               label="username"
               size="small"
+              fullWidth
               error={error ? true : false}
-              sx={{ width: "70%", my: "0.5rem" }}
+              sx={{ my: "0.5rem" }}
               InputLabelProps={{ style: { color: "white" } }}
             />
             <Field
@@ -91,7 +79,8 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               size="small"
               error={error ? true : false}
-              sx={{ width: "70%", my: "0.5rem" }}
+              fullWidth
+              sx={{ my: "0.5rem" }}
               InputLabelProps={{ style: { color: "white" } }}
               InputProps={{
                 endAdornment: (
@@ -109,7 +98,7 @@ const Login = () => {
               </Typography>
             )}
 
-            <LoadingButton type="submit" loading={isLoading} variant="contained" sx={{ width: "40%" }}>
+            <LoadingButton type="submit" loading={isLoading} variant="contained" sx={{ width: "10rem" }}>
               Login
             </LoadingButton>
 
@@ -118,10 +107,10 @@ const Login = () => {
               <CLink to="/register" sx={{ ":hover": { color: "secondary.main" } }}>
                 Click here to register
               </CLink>
-              {/* <Box>or</Box>
+              <Box>or</Box>
               <CLink to="/" sx={{ ":hover": { color: "secondary.main" } }}>
                 Sign in as guest
-              </CLink> */}
+              </CLink>
             </Box>
           </Box>
         )}

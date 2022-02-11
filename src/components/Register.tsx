@@ -1,6 +1,6 @@
 import { Container, Box, Typography, TextField, InputAdornment, IconButton } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IAuthFormValues } from "../lib/types";
 import { register } from "../redux/features/auth/authSlice";
 import { RootState, useAppDispatch } from "../redux/store";
@@ -14,9 +14,14 @@ import LoadingButton from "@mui/lab/LoadingButton";
 const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { data, isLoading } = useSelector((state: RootState) => state.auth);
+
   const [error, setError] = useState<any>(null);
   const [showPassword, setShowPassword] = useState(false);
-  const { isLoading } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (data) navigate("/");
+  }, [data, navigate]);
 
   const handleRegister = async (values: IAuthFormValues) => {
     if (values.username === "" || values.password === "") {
@@ -38,23 +43,14 @@ const Register = () => {
     <Container
       maxWidth="xs"
       sx={{
-        minHeight: "90vh",
+        background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
+        borderRadius: "1rem",
+        height: "85vh",
       }}
     >
       <Formik initialValues={{ username: "", password: "" }} onSubmit={(values) => handleRegister(values)}>
         {() => (
-          <Box
-            component={Form}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              py: "6rem",
-              background: "linear-gradient(40deg, rgba(96,55,85,1) 0%, rgba(75,73,122,1) 59%, rgba(14,80,144,1) 100%)",
-              borderRadius: "1rem",
-              height: "85vh",
-            }}
-          >
+          <Box component={Form} sx={{ textAlign: "center", p: "8rem 3rem" }}>
             <Typography variant="h5" gutterBottom>
               Let's Register!
             </Typography>
@@ -63,8 +59,9 @@ const Register = () => {
               name="username"
               label="username"
               size="small"
+              fullWidth
               error={error ? true : false}
-              sx={{ width: "70%", my: "0.5rem" }}
+              sx={{ my: "0.5rem" }}
               InputLabelProps={{ style: { color: "white" } }}
             />
             <Field
@@ -74,7 +71,8 @@ const Register = () => {
               type={showPassword ? "text" : "password"}
               size="small"
               error={error ? true : false}
-              sx={{ width: "70%", my: "0.5rem" }}
+              fullWidth
+              sx={{ my: "0.5rem" }}
               InputLabelProps={{ style: { color: "white" } }}
               InputProps={{
                 endAdornment: (
@@ -92,7 +90,7 @@ const Register = () => {
               </Typography>
             )}
 
-            <LoadingButton type="submit" loading={isLoading} variant="contained" sx={{ width: "40%" }}>
+            <LoadingButton type="submit" loading={isLoading} variant="contained" sx={{ width: "10rem" }}>
               Register
             </LoadingButton>
 
@@ -101,10 +99,10 @@ const Register = () => {
               <CLink to="/login" sx={{ ":hover": { color: "secondary.main" } }}>
                 Click here to login
               </CLink>
-              {/* <Box>or</Box>
+              <Box>or</Box>
               <CLink to="/" sx={{ ":hover": { color: "secondary.main" } }}>
                 Sign in as guest
-              </CLink> */}
+              </CLink>
             </Box>
           </Box>
         )}

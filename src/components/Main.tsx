@@ -18,7 +18,7 @@ const Main: React.FC = () => {
           minHeight: "85vh",
           borderRadius: "1rem",
           py: "2rem",
-          my: "auto",
+          my: "1rem",
         }}
       >
         <Timer />

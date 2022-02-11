@@ -61,7 +61,7 @@ const Header: React.FC = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box sx={{ minHeight: "11vh" }} />
+      <Box sx={{ minHeight: "10vh" }} />
     </>
   );
 };
