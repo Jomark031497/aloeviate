@@ -1,8 +1,8 @@
-import { Container, Box, Typography, TextField, InputAdornment, IconButton } from "@mui/material";
+import { Container, Box, Typography, TextField, InputAdornment, IconButton, Button } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react";
 import { IAuthFormValues } from "../lib/types";
-import { register } from "../redux/features/auth/authSlice";
+import { login, register } from "../redux/features/auth/authSlice";
 import { RootState, useAppDispatch } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import CLink from "./custom/CLink";
@@ -34,6 +34,14 @@ const Register = () => {
       navigate("/login?register=true");
     } catch (err: any) {
       setError(err.error);
+    }
+  };
+
+  const logInAsGuest = async () => {
+    try {
+      await dispatch(login({ username: "guest", password: "123qweasd" }));
+    } catch (err: any) {
+      console.log(err);
     }
   };
 
@@ -100,9 +108,9 @@ const Register = () => {
                 Click here to login
               </CLink>
               <Box>or</Box>
-              <CLink to="/" sx={{ ":hover": { color: "secondary.main" } }}>
+              <Button onClick={logInAsGuest} sx={{ ":hover": { color: "secondary.main" } }}>
                 Sign in as guest
-              </CLink>
+              </Button>
             </Box>
           </Box>
         )}

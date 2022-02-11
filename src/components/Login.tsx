@@ -1,4 +1,14 @@
-import { Container, Box, Typography, TextField, InputAdornment, IconButton, Alert, Snackbar } from "@mui/material";
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  InputAdornment,
+  IconButton,
+  Alert,
+  Snackbar,
+  Button,
+} from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -36,6 +46,14 @@ const Login = () => {
       navigate("/");
     } catch (err: any) {
       setError(err.error);
+    }
+  };
+
+  const logInAsGuest = async () => {
+    try {
+      await dispatch(login({ username: "guest", password: "123qweasd" }));
+    } catch (err: any) {
+      console.log(err);
     }
   };
 
@@ -108,9 +126,9 @@ const Login = () => {
                 Click here to register
               </CLink>
               <Box>or</Box>
-              <CLink to="/" sx={{ ":hover": { color: "secondary.main" } }}>
+              <Button onClick={logInAsGuest} sx={{ ":hover": { color: "secondary.main" } }}>
                 Sign in as guest
-              </CLink>
+              </Button>
             </Box>
           </Box>
         )}
