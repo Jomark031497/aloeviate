@@ -71,9 +71,6 @@ const Header: React.FC = () => {
                     register
                   </CLink>
                 </Box>
-                <Box sx={{ display: { xs: "block", md: "none" } }}>
-                  <MenuIcon sx={{ color: "primary.main" }} />
-                </Box>
               </>
             )}
           </Box>
