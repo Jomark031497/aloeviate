@@ -1,12 +1,16 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CLink from "./custom/CLink";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
 
 const Header: React.FC = () => {
   const { data } = useSelector((state: RootState) => state.auth);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const toggleDrawer = () => setOpenDrawer((prev) => !prev);
 
   const handleLogout = async () => {
     try {
@@ -17,6 +21,15 @@ const Header: React.FC = () => {
     }
   };
 
+  const list: any = () => (
+    <Box onClick={toggleDrawer} sx={{ backgroundColor: "background.default" }}>
+      <List>
+        <ListItem button sx={{ textAlign: "center", padding: "0.5rem" }} onClick={handleLogout}>
+          <ListItemText primary="logout" />
+        </ListItem>
+      </List>
+    </Box>
+  );
   return (
     <>
       <AppBar
@@ -37,7 +50,12 @@ const Header: React.FC = () => {
             {data ? (
               <>
                 <Box sx={{ display: { xs: "block", md: "none" } }}>
-                  <MenuIcon sx={{ color: "primary.main" }} />
+                  <IconButton onClick={toggleDrawer}>
+                    <MenuIcon sx={{ color: "text.primary" }} />
+                  </IconButton>
+                  <Drawer anchor="bottom" open={openDrawer} onClose={toggleDrawer}>
+                    {list()}
+                  </Drawer>
                 </Box>
                 <Typography color="primary" onClick={handleLogout} sx={{ display: { xs: "none", md: "block" } }}>
                   {data.username}
