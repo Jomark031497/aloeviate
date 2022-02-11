@@ -1,17 +1,17 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import authSlice from "./features/auth/authSlice";
 import taskSlice from "./features/task/taskSlice";
 
-// combine all reducers into 1
-const rootReducer = combineReducers({ auth: authSlice, tasks: taskSlice });
-
 // create the store and add the reducer functions
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    auth: authSlice,
+    tasks: taskSlice,
+  },
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 

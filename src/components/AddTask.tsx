@@ -13,7 +13,7 @@ const AddTask = () => {
   const handleSubmit = async (values: ITaskFormValues) => {
     if (!values.name || !values.duration) return;
     try {
-      dispatch(addTask(values));
+      dispatch(addTask({ name: values.name, duration: values.duration * 60 }));
       toggleAddTask();
     } catch (err) {
       console.error(err);

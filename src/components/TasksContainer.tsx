@@ -7,10 +7,10 @@ import TaskCard from "./TaskCard";
 
 const Tasks: React.FC = () => {
   const { data: tasks } = useSelector((state: RootState) => state.tasks);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    console.log("task container useEffect");
     dispatch(getTasks());
   }, [dispatch]);
 
