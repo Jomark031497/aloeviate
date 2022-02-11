@@ -22,23 +22,24 @@ const Header: React.FC = () => {
       <AppBar
         position="fixed"
         elevation={0}
-        sx={{ backgroundColor: "transparent", height: "10vh", justifyContent: "center" }}
+        sx={{ backgroundColor: "background.default", height: "10vh", justifyContent: "center" }}
       >
         <Toolbar sx={{ alignItems: "center" }}>
-          <Box id="title-container" sx={{ flex: 1 }}>
-            <CLink
-              variant="h5"
-              to="/"
-              sx={{ letterSpacing: "0.3rem", p: "1rem", ":hover": { color: "secondary.main" } }}
-            >
-              aloeviate.
-            </CLink>
-          </Box>
+          <CLink
+            variant="h5"
+            to="/"
+            sx={{ flex: 1, letterSpacing: "0.3rem", p: "1rem", ":hover": { color: "secondary.main" } }}
+          >
+            aloeviate.
+          </CLink>
 
           <Box component="ul">
             {data ? (
               <>
-                <Typography color="primary" onClick={handleLogout}>
+                <Box sx={{ display: { xs: "block", md: "none" } }}>
+                  <MenuIcon sx={{ color: "primary.main" }} />
+                </Box>
+                <Typography color="primary" onClick={handleLogout} sx={{ display: { xs: "none", md: "block" } }}>
                   {data.username}
                 </Typography>
               </>
@@ -60,7 +61,7 @@ const Header: React.FC = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box sx={{ minHeight: "10vh" }} />
+      <Box sx={{ minHeight: "11vh" }} />
     </>
   );
 };
